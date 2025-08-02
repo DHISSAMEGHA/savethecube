@@ -32,10 +32,6 @@ For Software:
 - VS Code, Chrome DevTools
 
 
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
 
 ### Implementation
 For Software:
@@ -49,13 +45,13 @@ Open index.html in a browser.
 For Software:
 
 # Screenshots (Add at least 3)
-![screenshot1.jpg]
+![useless/screenshot1.jpg]
 Shows the initial ice cube before melting.
 
-![screenshot2.jpg]
+![useless/screenshot2.jpg]
 The modal where the player tries to blow on the cube.
 
-![screenshot3.jpg]
+![useless/screenshot3.jpg]
 Certificate awarded after the cube melts.
 
 
