@@ -5,7 +5,7 @@
 
 
 ## Basic Details
-### Team Name: TUSK
+### Team Name: TUSK!
 
 
 ### Team Members
@@ -45,13 +45,13 @@ Open index.html in a browser.
 For Software:
 
 # Screenshots (Add at least 3)
-(useless/screenshot1.jpg)
+[screenshot2](https://github.com/user-attachments/assets/858ee82d-378b-4df8-aab4-9aef24de418b)
 Shows the initial ice cube before melting.
 
-(useless/screenshot2.jpg)
+[screenshot1](https://github.com/user-attachments/assets/dbc42e7e-40b2-4031-b7a3-6f79978d4a87)
 The modal where the player tries to blow on the cube.
 
-(useless/screenshot3.jpg)
+[screenshot3](https://github.com/user-attachments/assets/1c4f1cbf-946a-4020-a1c7-a3e99e6de3e0)
 Certificate awarded after the cube melts.
 
 
