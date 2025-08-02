@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Useless Ice Cube Saver</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      background: #e0f7fa;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #00796b;
+    }
+
+    #cube {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(145deg, #d0f0ff, #ffffff);
+      border-radius: 20%;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 1s ease-in-out;
+    }
+
+    #timer {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #004d40;
+    }
+
+    #message, #mourning {
+      margin-top: 25px;
+      font-size: 1.4rem;
+      color: #00695c;
+      display: none;
+    }
+
+    .fade {
+      animation: fadeOut 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+      }
+    }
+
+    .gray {
+      filter: grayscale(100%);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #26a69a;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #00796b;
+    }
+
+    #certificateModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png'), linear-gradient(to bottom right, #fffef7, #f4f1e9);
+      border: 3px solid #bfae90;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+      padding: 30px;
+      max-width: 350px;
+      width: 80%;
+      text-align: center;
+      font-family: 'Georgia', serif;
+      z-index: 9999;
+      color: #3e2f20;
+    }
+
+    #certificateModal h2 {
+      margin-top: 0;
+      color: #5b4225;
+    }
+
+    .cert-buttons button {
+      margin: 10px;
+      padding: 10px 15px;
+      background: #5b4225;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .signature {
+      margin-top: 30px;
+      font-family: 'Cursive';
+      font-size: 1.3rem;
+      color: #2d1e0f;
+    }
+
+    .seal {
+      font-size: 2rem;
+      margin-top: 10px;
+    }
+
+    #saveGameModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+      padding: 25px;
+      max-width: 320px;
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      z-index: 99999;
+    }
+
+    #saveGameModal button {
+      margin: 10px 8px;
+      padding: 10px 16px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      background: #26a69a;
+      color: white;
+      cursor: pointer;
+    }
+
+    #saveGameModal button:hover {
+      background: #00796b;
+    }
+
+    #saveGameMessage {
+      margin-top: 15px;
+      font-weight: 600;
+      color: #b71c1c;
+    }
+
+    #certBtn {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧊 Ice Cube Melter</h1>
+  <div id="cube"></div>
+  <div id="timer">You've been watching this cube melt for 0s</div>
+
+  <button onclick="openSaveGame()">💾 Try to Save the Cube</button>
+
+  <div id="message">💧 It lived a cool life.</div>
+  <div id="mourning">🖤 “All that melts must drip.”</div>
+
+  <button id="certBtn" onclick="showCertificate()">🎓 Get your Certificate</button>
+
+  <!-- Save Game Modal -->
+  <div id="saveGameModal">
+    <h3>Save the Cube!</h3>
+    <p>Guess a number: 1, 2, or 3</p>
+    <button onclick="makeGuess(1)">1</button>
+    <button onclick="makeGuess(2)">2</button>
+    <button onclick="makeGuess(3)">3</button>
+    <p id="saveGameMessage"></p>
+    <button style="margin-top:10px; background:#b71c1c;" onclick="closeSaveGame()">Give Up</button>
+  </div>
+
+  <!-- Certificate Modal -->
+  <div id="certificateModal">
+    <h2>🎓 Certificate of Watching</h2>
+    <p style="font-size: 1.1rem;">vere pani onnum ille</p>
+    <div class="signature">— The Ice Cube Authority</div>
+    <div class="seal">🕳</div>
+    <div class="cert-buttons">
+      <button onclick="closeCertificate()">Close</button>
+      <button onclick="downloadCertificate()">Download PNG</button>
+    </div>
+  </div>
+
+  <script>
+    const cube = document.getElementById('cube');
+    const timerEl = document.getElementById('timer');
+    const message = document.getElementById('message');
+    const mourning = document.getElementById('mourning');
+    const certBtn = document.getElementById('certBtn');
+    const certModal = document.getElementById('certificateModal');
+    const saveGameModal = document.getElementById('saveGameModal');
+    const saveGameMessage = document.getElementById('saveGameMessage');
+
+    let seconds = 0;
+    let melted = false;
+
+    let meltInterval = setInterval(() => {
+      seconds++;
+      timerEl.textContent = You've been watching this cube melt for ${seconds}s;
+
+      const size = 100 - seconds * 2;
+      if (size > 0) {
+        cube.style.width = size + 'px';
+        cube.style.height = size + 'px';
+        cube.style.borderRadius = ${20 - seconds / 5}%;
+      } else if (!melted) {
+        melted = true;
+        clearInterval(meltInterval);
+        cube.classList.add('fade');
+        document.body.classList.add('gray');
+        message.style.display = 'block';
+        mourning.style.display = 'block';
+        certBtn.style.display = 'inline-block';
+      }
+    }, 1000);
+
+    // Save game logic (impossible win)
+    function openSaveGame() {
+      if (melted) {
+        saveGameMessage.textContent = "Too late! The cube is already gone.";
+        saveGameModal.style.display = 'block';
+        return;
+      }
+      saveGameMessage.textContent = "";
+      saveGameModal.style.display = 'block';
+    }
+
+    function closeSaveGame() {
+      saveGameModal.style.display = 'none';
+    }
+
+    function makeGuess(userGuess) {
+      const realAnswer = Math.floor(Math.random() * 3) + 1;
+      const alwaysWrong = [1, 2, 3].find(n => n !== userGuess);
+      saveGameMessage.textContent = Wrong! I was thinking of ${alwaysWrong}.;
+    }
+
+    function showCertificate() {
+      certModal.style.display = 'block';
+    }
+
+    function closeCertificate() {
+      certModal.style.display = 'none';
+    }
+
+    function downloadCertificate() {
+      html2canvas(certModal).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'certificate-of-watching.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+  </script>
+
+</body>
+</html>
