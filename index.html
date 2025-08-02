@@ -187,7 +187,7 @@
     <h2>🎓 Certificate of Watching</h2>
     <p style="font-size: 1.1rem;">vere pani onnum ille</p>
     <div class="signature">— The Ice Cube Authority</div>
-    <div class="seal">🕳</div>
+    <div class="seal">🕳️</div>
     <div class="cert-buttons">
       <button onclick="closeCertificate()">Close</button>
       <button onclick="downloadCertificate()">Download PNG</button>
@@ -209,13 +209,13 @@
 
     let meltInterval = setInterval(() => {
       seconds++;
-      timerEl.textContent = You've been watching this cube melt for ${seconds}s;
+      timerEl.textContent = `You've been watching this cube melt for ${seconds}s`;
 
       const size = 100 - seconds * 2;
       if (size > 0) {
         cube.style.width = size + 'px';
         cube.style.height = size + 'px';
-        cube.style.borderRadius = ${20 - seconds / 5}%;
+        cube.style.borderRadius = `${20 - seconds / 5}%`;
       } else if (!melted) {
         melted = true;
         clearInterval(meltInterval);
@@ -245,7 +245,7 @@
     function makeGuess(userGuess) {
       const realAnswer = Math.floor(Math.random() * 3) + 1;
       const alwaysWrong = [1, 2, 3].find(n => n !== userGuess);
-      saveGameMessage.textContent = Wrong! I was thinking of ${alwaysWrong}.;
+      saveGameMessage.textContent = `Wrong! I was thinking of ${alwaysWrong}.`;
     }
 
     function showCertificate() {
@@ -268,3 +268,28 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
